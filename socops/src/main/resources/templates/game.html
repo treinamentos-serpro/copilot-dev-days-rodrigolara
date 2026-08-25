@@ -17,24 +17,89 @@
 <!-- ============================================================= -->
 <!--  LOBBY — visible before a game starts                          -->
 <!-- ============================================================= -->
-<div id="lobbyView" class="flex flex-col items-center justify-center min-h-full p-6 bg-gray-50">
-    <div class="text-center max-w-sm">
-        <h1 class="text-4xl font-bold text-gray-900 mb-2">Soc Ops</h1>
-        <p class="text-lg text-gray-600 mb-8">Social Bingo</p>
+<div id="lobbyView" class="lobby-root">
 
-        <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-200 mb-8">
-            <h2 class="font-semibold text-gray-800 mb-3">How to play</h2>
-            <ul class="text-left text-gray-600 text-sm space-y-2">
-                <li>• Find people who match the questions</li>
-                <li>• Tap a square when you find a match</li>
-                <li>• Get 5 in a row to win!</li>
+    <!-- background grid lines decoration -->
+    <div class="lobby-bg-grid" aria-hidden="true"></div>
+
+    <!-- main two-column layout -->
+    <div class="lobby-layout">
+
+        <!-- ── LEFT RAIL: mission briefing ─────────────────────── -->
+        <aside class="lobby-rail">
+            <div class="lobby-brand">
+                <span class="lobby-brand-tag">// SOC_OPS</span>
+                <h1 class="lobby-title">Social<br/>Bingo</h1>
+                <p class="lobby-subtitle">Multiplayer intelligence grid</p>
+            </div>
+
+            <dl class="lobby-meta">
+                <div class="lobby-meta-row">
+                    <dt>GRID SIZE</dt><dd>5 × 5</dd>
+                </div>
+                <div class="lobby-meta-row">
+                    <dt>WIN COND.</dt><dd>5 in a line</dd>
+                </div>
+                <div class="lobby-meta-row">
+                    <dt>MODE</dt><dd>Social recon</dd>
+                </div>
+                <div class="lobby-meta-row">
+                    <dt>FREE CELL</dt><dd>#12 — active</dd>
+                </div>
+            </dl>
+
+            <ul class="lobby-rules">
+                <li><span class="lobby-rule-num">01</span> Locate people matching each prompt</li>
+                <li><span class="lobby-rule-num">02</span> Tap the cell to mark the contact</li>
+                <li><span class="lobby-rule-num">03</span> Complete a line to trigger BINGO</li>
             </ul>
+
+            <button onclick="launchGame()"
+                    class="lobby-cta"
+                    aria-label="Initialize game and load a fresh board">
+                <span class="lobby-cta-label">INITIALIZE GAME</span>
+                <span class="lobby-cta-arrow" aria-hidden="true">&#9654;</span>
+            </button>
+        </aside>
+
+        <!-- ── RIGHT: static decorative board preview ──────────── -->
+        <div class="lobby-preview-wrap" aria-hidden="true">
+            <div class="lobby-preview-label">BOARD PREVIEW</div>
+            <div class="lobby-preview-grid">
+                <!-- Row 0 -->
+                <div class="lpx lpx-dim">?</div>
+                <div class="lpx lpx-dim">?</div>
+                <div class="lpx lpx-dim">?</div>
+                <div class="lpx lpx-dim">?</div>
+                <div class="lpx lpx-dim">?</div>
+                <!-- Row 1 -->
+                <div class="lpx lpx-dim">?</div>
+                <div class="lpx lpx-active">★</div>
+                <div class="lpx lpx-dim">?</div>
+                <div class="lpx lpx-active">★</div>
+                <div class="lpx lpx-dim">?</div>
+                <!-- Row 2 -->
+                <div class="lpx lpx-dim">?</div>
+                <div class="lpx lpx-dim">?</div>
+                <div class="lpx lpx-free">FREE</div>
+                <div class="lpx lpx-dim">?</div>
+                <div class="lpx lpx-dim">?</div>
+                <!-- Row 3 -->
+                <div class="lpx lpx-dim">?</div>
+                <div class="lpx lpx-active">★</div>
+                <div class="lpx lpx-dim">?</div>
+                <div class="lpx lpx-active">★</div>
+                <div class="lpx lpx-dim">?</div>
+                <!-- Row 4 -->
+                <div class="lpx lpx-dim">?</div>
+                <div class="lpx lpx-dim">?</div>
+                <div class="lpx lpx-dim">?</div>
+                <div class="lpx lpx-dim">?</div>
+                <div class="lpx lpx-dim">?</div>
+            </div>
+            <p class="lobby-preview-note">Static preview — real board loads on start</p>
         </div>
 
-        <button onclick="launchGame()"
-                class="w-full bg-accent text-white font-semibold py-4 px-8 rounded-lg text-lg accent-active transition-colors">
-            Start Game
-        </button>
     </div>
 </div>
 
