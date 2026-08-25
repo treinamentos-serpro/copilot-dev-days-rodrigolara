@@ -178,3 +178,288 @@ button:disabled { cursor: default; }
 .animate-\[bounce_0\.5s_ease-out\] {
     animation: bounce 0.5s ease-out;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   LOBBY — Design Variation 2: Cyberpunk Neon Grid-Forward
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── CSS variables (Cyberpunk Neon palette) ─────────────────── */
+:root {
+    --neon-cyan:    #00e5ff;
+    --neon-magenta: #ff007f;
+    --neon-green:   #39ff14;
+    --neon-yellow:  #ffe600;
+    --dark-bg:      #080c14;
+    --dark-panel:   #0d1526;
+    --dark-border:  #1a2a44;
+    --dark-dim:     #1e3050;
+    --text-muted:   #4a6080;
+    --text-bright:  #c8daf0;
+}
+
+/* ── root container ─────────────────────────────────────────── */
+.lobby-root {
+    position: relative;
+    min-height: 100%;
+    background-color: var(--dark-bg);
+    background-image:
+        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(0, 229, 255, 0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 20% 80%, rgba(255, 0, 127, 0.05) 0%, transparent 60%);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    box-sizing: border-box;
+}
+
+/* ── perspective grid lines (purely decorative) ─────────────── */
+.lobby-bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(0, 229, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+}
+
+/* ── two-column layout ──────────────────────────────────────── */
+.lobby-layout {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    width: 100%;
+    max-width: 72rem;
+    align-items: center;
+}
+
+/* ── left rail ──────────────────────────────────────────────── */
+.lobby-rail {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+/* brand block */
+.lobby-brand-tag {
+    display: block;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--neon-cyan);
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+}
+
+.lobby-title {
+    margin: 0;
+    font-family: "Courier New", Courier, monospace;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--text-bright);
+    text-shadow: 0 0 24px rgba(0, 229, 255, 0.35);
+}
+
+.lobby-subtitle {
+    margin: 0.5rem 0 0;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+/* metadata table */
+.lobby-meta {
+    margin: 0;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--dark-border);
+    border-left: 3px solid var(--neon-cyan);
+    background-color: var(--dark-panel);
+    border-radius: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.lobby-meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+}
+
+.lobby-meta-row dt {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+}
+
+.lobby-meta-row dd {
+    margin: 0;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.8rem;
+    color: var(--neon-cyan);
+    font-weight: 600;
+}
+
+/* rules list */
+.lobby-rules {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.lobby-rules li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.8rem;
+    color: var(--text-bright);
+    line-height: 1.5;
+}
+
+.lobby-rule-num {
+    flex-shrink: 0;
+    color: var(--neon-magenta);
+    font-weight: 700;
+    font-size: 0.7rem;
+    margin-top: 0.05rem;
+}
+
+/* CTA button */
+.lobby-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background-color: transparent;
+    border: 2px solid var(--neon-cyan);
+    border-radius: 0.25rem;
+    color: var(--neon-cyan);
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: background-color 0.15s, box-shadow 0.15s;
+    box-sizing: border-box;
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.2), inset 0 0 12px rgba(0, 229, 255, 0.04);
+}
+
+.lobby-cta:hover {
+    background-color: rgba(0, 229, 255, 0.12);
+    box-shadow: 0 0 24px rgba(0, 229, 255, 0.4), inset 0 0 16px rgba(0, 229, 255, 0.08);
+}
+
+.lobby-cta:focus-visible {
+    background-color: rgba(0, 229, 255, 0.12);
+    box-shadow: 0 0 24px rgba(0, 229, 255, 0.4), inset 0 0 16px rgba(0, 229, 255, 0.08);
+    outline: 2px solid var(--neon-cyan);
+    outline-offset: 3px;
+}
+
+.lobby-cta-label { letter-spacing: 0.15em; }
+.lobby-cta-arrow { font-size: 0.7rem; }
+
+/* ── right side: board preview ──────────────────────────────── */
+.lobby-preview-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.lobby-preview-label {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    align-self: flex-start;
+}
+
+.lobby-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.3rem;
+    width: 100%;
+    max-width: 26rem;
+    aspect-ratio: 1 / 1;
+}
+
+/* preview cell base */
+.lpx {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.2rem;
+    font-family: "Courier New", Courier, monospace;
+    font-size: clamp(0.5rem, 1.5vw, 0.75rem);
+    font-weight: 600;
+    aspect-ratio: 1 / 1;
+    border: 1px solid var(--dark-border);
+    transition: none;
+}
+
+/* dim (unselected) cell */
+.lpx-dim {
+    background-color: var(--dark-dim);
+    color: var(--text-muted);
+    border-color: var(--dark-border);
+}
+
+/* active (marked) cell */
+.lpx-active {
+    background-color: rgba(57, 255, 20, 0.12);
+    border-color: var(--neon-green);
+    color: var(--neon-green);
+    box-shadow: 0 0 8px rgba(57, 255, 20, 0.25);
+}
+
+/* free center cell */
+.lpx-free {
+    background-color: rgba(255, 230, 0, 0.12);
+    border-color: var(--neon-yellow);
+    color: var(--neon-yellow);
+    font-size: clamp(0.45rem, 1.2vw, 0.65rem);
+    letter-spacing: 0.05em;
+    box-shadow: 0 0 8px rgba(255, 230, 0, 0.25);
+}
+
+.lobby-preview-note {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin: 0;
+    letter-spacing: 0.05em;
+    align-self: flex-start;
+}
+
+/* ── responsive: stack on narrow screens ────────────────────── */
+@media (max-width: 700px) {
+    .lobby-root { padding: 1.5rem 1rem; align-items: flex-start; }
+    .lobby-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .lobby-preview-grid { max-width: 100%; }
+    .lobby-title { font-size: clamp(2rem, 10vw, 3rem); }
+}
+
+/* ── reduced-motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .lobby-cta { transition: none; }
+}
