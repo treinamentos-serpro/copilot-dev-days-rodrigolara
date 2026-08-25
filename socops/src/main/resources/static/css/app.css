@@ -3,6 +3,19 @@
    Blazor-specific selectors (#blazor-error-ui, .blazor-error-boundary,
    .loading-progress) have been stripped out. */
 
+:root {
+    --neon-cyan:     #00e5ff;
+    --neon-green:    #39ff14;
+    --neon-amber:    #ffb300;
+    --neon-pink:     #ff2d78;
+    --console-bg:    #0a0e1a;
+    --console-mid:   #0f1628;
+    --console-panel: #111a2e;
+    --console-border: rgba(0, 229, 255, 0.18);
+    --console-text:  #c8d8f0;
+    --console-dim:   #4a6080;
+}
+
 html,
 body {
     height: 100%;
@@ -177,4 +190,320 @@ button:disabled { cursor: default; }
 
 .animate-\[bounce_0\.5s_ease-out\] {
     animation: bounce 0.5s ease-out;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   LOBBY — Cyberpunk Neon Mission-Console Design
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── lobby container ───────────────────────────────────────────── */
+#lobbyView {
+    background-color: var(--console-bg);
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 39px,
+            rgba(0, 229, 255, 0.04) 39px,
+            rgba(0, 229, 255, 0.04) 40px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 39px,
+            rgba(0, 229, 255, 0.04) 39px,
+            rgba(0, 229, 255, 0.04) 40px
+        );
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    overflow-x: hidden;
+}
+
+/* ── split layout ──────────────────────────────────────────────── */
+.lobby-split {
+    display: flex;
+    flex: 1 1 0%;
+    min-height: 100%;
+    align-items: stretch;
+    overflow-x: hidden;
+}
+
+/* left identity/CTA panel (~55%) */
+.lobby-identity {
+    flex: 0 0 55%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem 2.5rem 3rem 3rem;
+    position: relative;
+    background: linear-gradient(135deg, #0a0e1a 0%, #0d1525 70%, #101e38 100%);
+    border-right: 1px solid var(--console-border);
+    overflow: hidden;
+}
+
+/* atmospheric glow blob */
+.lobby-identity::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    left: -80px;
+    width: 360px;
+    height: 360px;
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.10) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* right mission brief panel (~45%) */
+.lobby-brief {
+    flex: 0 0 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem 3rem 3rem 2.5rem;
+    background: var(--console-panel);
+    gap: 1.5rem;
+}
+
+/* ── identity zone ─────────────────────────────────────────────── */
+.lobby-eyebrow {
+    font-size: 0.6875rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--neon-cyan);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.lobby-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin: 0 0 0.25rem;
+    text-shadow: 0 0 40px rgba(0, 229, 255, 0.35);
+}
+
+.lobby-subtitle {
+    font-size: 1rem;
+    color: var(--neon-cyan);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin: 0 0 2rem;
+    font-weight: 600;
+}
+
+.lobby-tagline {
+    font-size: 0.875rem;
+    color: var(--console-text);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    max-width: 26ch;
+}
+
+/* ── launch button ─────────────────────────────────────────────── */
+.lobby-launch-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    background: transparent;
+    border: 2px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    font-size: 0.8125rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.875rem 2rem;
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.2s, box-shadow 0.2s, background 0.2s;
+    box-shadow: 0 0 16px rgba(0, 229, 255, 0.22), inset 0 0 0 transparent;
+}
+
+.lobby-launch-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--neon-cyan);
+    transform: translateX(-101%);
+    transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+}
+
+.lobby-launch-btn:hover::before,
+.lobby-launch-btn:focus-visible::before {
+    transform: translateX(0);
+}
+
+.lobby-launch-btn:hover,
+.lobby-launch-btn:focus-visible {
+    color: var(--console-bg);
+    box-shadow: 0 0 32px rgba(0, 229, 255, 0.55);
+}
+
+.lobby-launch-btn > * { position: relative; z-index: 1; }
+
+.lobby-launch-btn:focus-visible {
+    outline: 2px solid var(--neon-cyan);
+    outline-offset: 3px;
+}
+
+/* ── mission brief zone ────────────────────────────────────────── */
+.mission-header {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin-bottom: -0.25rem;
+}
+
+.mission-badge {
+    font-size: 0.5625rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: var(--neon-green);
+    color: #0a0e1a;
+    padding: 0.2em 0.7em;
+    font-weight: 800;
+    border-radius: 1px;
+}
+
+.mission-id {
+    font-size: 0.625rem;
+    letter-spacing: 0.18em;
+    color: var(--console-dim);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.mission-rules {
+    border: 1px solid var(--console-border);
+    border-radius: 3px;
+    padding: 1.125rem 1.25rem;
+    background: rgba(0, 229, 255, 0.03);
+}
+
+.mission-rule {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.8125rem;
+    color: var(--console-text);
+    line-height: 1.5;
+}
+
+.mission-rule + .mission-rule {
+    margin-top: 0.875rem;
+    padding-top: 0.875rem;
+    border-top: 1px solid rgba(0, 229, 255, 0.07);
+}
+
+.mission-rule-num {
+    flex-shrink: 0;
+    width: 1.375rem;
+    height: 1.375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    font-size: 0.625rem;
+    font-weight: 800;
+    border-radius: 2px;
+    margin-top: 0.1rem;
+}
+
+/* ── status strip ──────────────────────────────────────────────── */
+.mission-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.6875rem;
+    color: var(--console-dim);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--neon-green);
+    box-shadow: 0 0 6px var(--neon-green);
+    flex-shrink: 0;
+}
+
+/* ── decorative mini-grid ──────────────────────────────────────── */
+.deco-grid-wrap {
+    margin-top: auto;
+    padding-top: 1.5rem;
+}
+
+.deco-grid-label {
+    font-size: 0.5625rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--console-dim);
+    margin-bottom: 0.5rem;
+}
+
+.deco-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 3px;
+    max-width: 160px;
+    opacity: 0.55;
+}
+
+.deco-cell {
+    aspect-ratio: 1;
+    border-radius: 2px;
+    background: rgba(0, 229, 255, 0.06);
+    border: 1px solid rgba(0, 229, 255, 0.14);
+}
+
+.deco-cell.deco-marked {
+    background: rgba(57, 255, 20, 0.18);
+    border-color: rgba(57, 255, 20, 0.45);
+    box-shadow: 0 0 6px rgba(57, 255, 20, 0.25);
+}
+
+.deco-cell.deco-free {
+    background: rgba(0, 229, 255, 0.2);
+    border-color: var(--neon-cyan);
+}
+
+/* ── mobile: stack vertically ──────────────────────────────────── */
+@media (max-width: 640px) {
+    .lobby-split {
+        flex-direction: column;
+    }
+    .lobby-identity {
+        flex: none;
+        padding: 2.5rem 1.5rem 2rem;
+        border-right: none;
+        border-bottom: 1px solid var(--console-border);
+    }
+    .lobby-brief {
+        flex: none;
+        padding: 1.75rem 1.5rem 2.5rem;
+    }
+    .lobby-title {
+        font-size: 2.5rem;
+    }
+    .deco-grid-wrap {
+        display: none;
+    }
+}
+
+/* ── reduced motion ────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .lobby-launch-btn::before {
+        transition: none;
+    }
+    .lobby-launch-btn {
+        transition: none;
+    }
 }
