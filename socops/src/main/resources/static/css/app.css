@@ -3,6 +3,14 @@
    Blazor-specific selectors (#blazor-error-ui, .blazor-error-boundary,
    .loading-progress) have been stripped out. */
 
+/* ── global design tokens ───────────────────────────────────────── */
+:root {
+    --neon:        #00ffe7;
+    --neon-dim:    rgba(0,255,231,.18);
+    --neon-glow:   rgba(0,255,231,.45);
+    --neon-border: rgba(0,255,231,.35);
+}
+
 html,
 body {
     height: 100%;
@@ -162,6 +170,348 @@ button:disabled { cursor: default; }
 .leading-tight   { line-height: 1.25; }
 
 .min-h-\[60px\] { min-height: 60px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   TACTICAL MISSION LOBBY — design variation 3
+   Cyberpunk Neon / mission-console aesthetic.
+   All styles are contained here; no external assets or libraries.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── design tokens (lobby-specific) ────────────────────────────── */
+:root {
+    --panel-bg:    rgba(4, 12, 24, 0.92);
+    --panel-edge:  rgba(0,255,231,.22);
+    --console-dark:#060e1a;
+    --text-bright: #e2f5f3;
+    --text-mid:    #8ab8b3;
+    --text-dim:    #4d7a75;
+    --motif-line:  rgba(0,255,231,.10);
+    --motif-node:  rgba(0,255,231,.30);
+    --badge-bg:    rgba(0,255,231,.12);
+}
+
+/* ── lobby shell ────────────────────────────────────────────────── */
+.lobby-shell {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+    padding: 1.5rem 1rem;
+    background-color: var(--console-dark);
+    background-image:
+        radial-gradient(ellipse 70% 50% at 50% 0%,   rgba(0,255,231,.07) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 50% 100%, rgba(0,200,255,.05) 0%, transparent 70%);
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* ── decorative SVG motif ───────────────────────────────────────── */
+.lobby-grid-motif {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: .35;
+}
+.motif-line {
+    stroke: var(--motif-line);
+    stroke-width: 1;
+}
+.motif-node {
+    fill: var(--motif-node);
+}
+.motif-node--center {
+    fill: var(--neon);
+    opacity: .5;
+}
+
+/* ── stacked module container ───────────────────────────────────── */
+.lobby-stack {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 22rem;
+    z-index: 1;
+}
+
+/* ── base console module ────────────────────────────────────────── */
+.console-module {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-edge);
+    border-radius: 4px;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 0 0 1px rgba(0,255,231,.04) inset,
+                0 4px 24px rgba(0,0,0,.5);
+}
+
+/* corner-cut decoration via outline */
+.console-module::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -1px; left: -1px;
+    width: 12px; height: 12px;
+    border-top: 2px solid var(--neon);
+    border-left: 2px solid var(--neon);
+    border-radius: 4px 0 0 0;
+    pointer-events: none;
+}
+.console-module {
+    position: relative;
+}
+
+/* ── header module ──────────────────────────────────────────────── */
+.console-module--header {
+    text-align: center;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.console-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+}
+
+.console-badge {
+    background: var(--badge-bg);
+    border: 1px solid var(--neon-border);
+    color: var(--neon);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 0.15rem 0.4rem;
+    border-radius: 2px;
+}
+.console-badge--dim {
+    background: rgba(255,255,255,.04);
+    border-color: rgba(255,255,255,.12);
+    color: var(--text-mid);
+}
+
+.console-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--neon);
+    box-shadow: 0 0 6px var(--neon-glow);
+    animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.console-eyebrow-text {
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+}
+
+.lobby-title {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 2.6rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    color: var(--neon);
+    text-shadow: 0 0 18px var(--neon-glow), 0 0 40px rgba(0,255,231,.2);
+    margin: 0 0 0.25rem;
+    line-height: 1;
+    word-break: break-word;
+}
+
+.lobby-subtitle {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    margin: 0;
+}
+
+/* ── readouts module ────────────────────────────────────────────── */
+.console-module--readouts {
+    padding: 0.75rem 1.25rem;
+}
+
+.readout-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.45rem 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.72rem;
+}
+
+.readout-label {
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+}
+
+.readout-value {
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--text-bright);
+}
+
+.readout-value--ready {
+    color: var(--neon);
+    text-shadow: 0 0 8px var(--neon-glow);
+}
+
+.readout-divider {
+    height: 1px;
+    background: var(--panel-edge);
+}
+
+/* ── briefing module ────────────────────────────────────────────── */
+.console-module--briefing {
+    padding: 0.9rem 1.25rem;
+}
+
+.briefing-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.briefing-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.briefing-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.briefing-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--text-mid);
+    line-height: 1.4;
+}
+
+.briefing-step {
+    flex-shrink: 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+    font-size: 0.7rem;
+    color: var(--neon);
+    letter-spacing: 0.05em;
+    padding-top: 0.05rem;
+}
+
+/* ── CTA module ─────────────────────────────────────────────────── */
+.console-module--cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 1.25rem;
+}
+
+.cta-primary {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--neon);
+    border: 1.5px solid var(--neon);
+    border-radius: 3px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.9rem 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 0 12px var(--neon-dim), inset 0 0 12px var(--neon-dim);
+    transition: background 150ms, box-shadow 150ms, color 150ms;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-primary::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--neon);
+    opacity: 0;
+    transition: opacity 150ms;
+}
+
+.cta-primary:hover,
+.cta-primary:focus-visible {
+    background: var(--neon-dim);
+    box-shadow: 0 0 24px var(--neon-glow), inset 0 0 18px var(--neon-dim);
+}
+
+.cta-primary:focus-visible {
+    outline: 2px solid var(--neon);
+    outline-offset: 3px;
+}
+
+.cta-primary:active {
+    background: rgba(0,255,231,.28) !important;
+}
+
+.cta-chevrons {
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+.cta-hint {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin: 0;
+}
+
+/* ── animations ─────────────────────────────────────────────────── */
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--neon-glow); }
+    50%       { opacity: 0.4; box-shadow: 0 0 2px transparent; }
+}
+
+/* ── reduced-motion overrides ───────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .console-status-dot { animation: none; }
+    .cta-primary, .cta-primary::after { transition: none; }
+}
+
+/* ── responsive tweaks ──────────────────────────────────────────── */
+@media (max-width: 360px) {
+    .lobby-title { font-size: 2rem; }
+    .cta-primary { font-size: 0.75rem; padding: 0.75rem 1rem; }
+}
+
+/* ── keyboard focus for all interactive elements ────────────────── */
+.lobby-shell button:focus-visible {
+    outline: 2px solid var(--neon, #00ffe7);
+    outline-offset: 2px;
+}
 
 /* ── keyframes ─────────────────────────────────────────────────── */
 @keyframes bounce {
